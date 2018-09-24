@@ -76,6 +76,7 @@ int main(int argc, const char * argv[])
 
     vec lambdas(N);
     vec a_lambdas(N);
+
     test_ortho( R, N );
     test_eigvals( N, lambdas, a_lambdas );
 
