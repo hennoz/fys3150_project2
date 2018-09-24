@@ -76,12 +76,12 @@ int main(int argc, const char * argv[])
 
     vec lambdas(N);
     vec a_lambdas(N);
+    test_ortho( R, N );
+    test_eigvals( N, lambdas, a_lambdas );
 
     jacobi_method( N, A, R );
     armadillo_eigpair( N, A );
 
-    test_ortho( R, N );
-    test_eigvals( N, lambdas, a_lambdas );
 
     return 0;
 
