@@ -1,5 +1,5 @@
 #include <iostream>
-//#include <fstream>
+#include <fstream>
 #include <cmath>
 #include <armadillo>
 //#include "catch.hpp"
@@ -18,7 +18,7 @@ int main(int argc, const char * argv[])
 {
     int N = 200;
     double p_N = 5;
-    double w = 0;
+    double w = 0.0;
     double w2 = w*w;
     int k, l;
     double h, Diag, NonDiag;
@@ -28,7 +28,7 @@ int main(int argc, const char * argv[])
 
     if ( p_N != 0)
     {
-        h = p_N / (N + 1);
+        h = p_N / double(N + 1);
         Diag = 2.0/(h*h);
         NonDiag = -1.0/(h*h);
         for ( int i = 0; i < N; i++)
@@ -74,19 +74,16 @@ int main(int argc, const char * argv[])
         }
     }
 
+    vec lambdas(N);
+    vec a_lambdas(N);
 
     jacobi_method( N, A, R );
     armadillo_eigpair( N, A );
 
-    vec lambdas(N), a_lambdas(N);
-    test_eigvals( N, lambdas, a_lambdas );
     test_ortho( R, N );
+    test_eigvals( N, lambdas, a_lambdas );
 
-    cout << "Eigvals from the jacobi_method; " << endl;
-    for ( int i = 0; i < 4; i++ )
-    {
-        cout << lambdas[i] << endl;
-    }
     return 0;
+
 }
 
