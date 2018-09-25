@@ -78,7 +78,10 @@ int main(int argc, const char * argv[])
     vec a_lambdas(N);
 
     test_ortho( R, N );
-    test_eigvals( N, lambdas, a_lambdas );
+    if ( p_N == 0 )
+    {
+        test_eigvals( N, lambdas, a_lambdas );
+    }
 
     jacobi_method( N, A, R );
     armadillo_eigpair( N, A );
