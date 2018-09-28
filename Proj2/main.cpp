@@ -5,8 +5,7 @@
 //#include "catch.hpp"
 #include "jacobi_rotate.h"
 #include "maxoffdiag.h"
-#include "test_ortho.h"
-#include "test_eigvals.h"
+#include "test.h"
 #include "analytic_eigvals.h"
 #include "jacobi_method.h"
 #include "armadillo_eigpair.h"
@@ -14,14 +13,16 @@
 using namespace std;
 using namespace arma;
 
+void test_eigvals_quantum( vec &lambdas, double p_N);
+
 int main(int argc, const char * argv[])
 {
     int N = 200;
-    double p_N = 5;
+    double p_N = 0;
     double w = 0.0;
     double w2 = w*w;
     int k, l;
-    double h, Diag, NonDiag;
+    double h, d, a;
 
     vec p = zeros<vec>(N);
     vec V = zeros<vec>(N);
@@ -29,8 +30,8 @@ int main(int argc, const char * argv[])
     if ( p_N != 0)
     {
         h = p_N / double(N + 1);
-        Diag = 2.0/(h*h);
-        NonDiag = -1.0/(h*h);
+        d = 2.0/(h*h);
+        a = -1.0/(h*h);
         for ( int i = 0; i < N; i++)
         {
             p[i] = (i + 1)*h;
@@ -45,8 +46,8 @@ int main(int argc, const char * argv[])
             }
         }
     } else {
-        Diag = 2.0;
-        NonDiag = -1.0;
+        d = 2.0;
+        a = -1.0;
     }
 
     // Create A and R
@@ -58,17 +59,17 @@ int main(int argc, const char * argv[])
         {
             if ( i == j )
             {
-                A(i,j) = Diag + V[i];
+                A(i,j) = d + V[i];
                 R(i,j) = 1.0;
             }
             else if ( i == j - 1 )
             {
-                A(i,j) = NonDiag;
+                A(i,j) = a;
                 R(i,j) = 0.0;
             }
             else if ( i == j + 1 )
             {
-                A(i,j) = NonDiag;
+                A(i,j) = a;
                 R(i,j) = 0.0;
             }
         }
@@ -76,18 +77,27 @@ int main(int argc, const char * argv[])
 
     vec lambdas(N);
     vec a_lambdas(N);
+    jacobi_method( N, A, R, lambdas );
+    armadillo_eigpair( N, A );
 
-    test_ortho( R, N );
-    if ( p_N == 0 )
+    cout << "Jacobi_rotate eigvals (cout from main.cpp) " << endl;
+    for ( int i = 0; i < 4; i++)
     {
-        test_eigvals( N, lambdas, a_lambdas );
+        cout << lambdas[i] << endl;
     }
 
-    jacobi_method( N, A, R );
-    armadillo_eigpair( N, A );
+
+
+    if ( p_N == 0)
+    {
+        test_eigvals( N, lambdas, a_lambdas, a, d );
+    }
+
+    if ( p_N != 0 && w == 0.0){
+        test_eigvals_quantum( lambdas, p_N);
+    }
 
 
     return 0;
-
 }
 

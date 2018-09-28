@@ -11,20 +11,18 @@ SOURCES += \
     main.cpp \
     maxoffdiag.cpp \
     jacobi_rotate.cpp \
-    test_ortho.cpp \
-    test_eigvals.cpp \
     analytic_eigvals.cpp \
     jacobi_method.cpp \
-    armadillo_eigpair.cpp
+    armadillo_eigpair.cpp \
+    test.cpp
 
 HEADERS += catch.hpp \
     maxoffdiag.h \
     jacobi_rotate.h \
-    test_ortho.h \
-    test_eigvals.h \
     analytic_eigvals.h \
     jacobi_method.h \
-    armadillo_eigpair.h
+    armadillo_eigpair.h \
+    test.h
 
 
 INCLUDEPATH += /usr/local/include

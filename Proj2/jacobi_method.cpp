@@ -4,7 +4,7 @@
 
 using namespace arma;
 
-void jacobi_method( int N, mat A, mat R)
+void jacobi_method( int N, mat &A, mat &R, vec &lambdas)
 {
     int k,l;
     double epsilon = 1e-10;
@@ -27,16 +27,20 @@ void jacobi_method( int N, mat A, mat R)
     end_ = clock();
     vec diags(N);
     diags = A.diag();
-    vec lambdas = sort(diags);
+    lambdas = sort(diags);
 
-    cout << "Jacobi_rotate eigvals " << endl;
-    for ( int i = 0; i < 4; i++)
-    {
-        cout << lambdas[i] << endl;
-    }
+//    cout << "Jacobi_rotate eigvals (cout from jacobi_method.cpp) " << endl;
+//    for ( int i = 0; i < 4; i++)
+//    {
+//        cout << lambdas[i] << endl;
+//    }
+
+
 
 //    cout << "Jacobi_rotate eigvecs; R = " << endl << R << endl << endl;
     cout << "Number of iterations, or similarity transformations = " << iterations << endl << endl;
     cout << "Time to run Jacobi_rotate; " << t_s_ << "ms when N = " << N << endl<<endl;
+
+
 }
 

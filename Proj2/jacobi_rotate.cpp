@@ -12,7 +12,7 @@ void Jacobi_rotate( mat &A, mat &R, int k, int l, int N)
     double s,c, tau, t;
     //  c, s = cos\theta, sin\theta
     //  if a_kl ≠ 0, tau = (a_ll - a_kk)/(2*a_kl)
-    if ( A(k,l) != 0.0)
+    if ( A(k,l) != 0.0) //
     {
         tau = (A(l,l) - A(k,k))/(2*A(k,l));
         /*
@@ -20,7 +20,6 @@ void Jacobi_rotate( mat &A, mat &R, int k, int l, int N)
          *   = ±1.0 / (sqrt(1 + tau^2) - tau)
          * => times conjugate up and down to prevent loss of data
          */
-
         //  if tau is positive
         if ( tau >= 0.0 )
         {
@@ -48,17 +47,16 @@ void Jacobi_rotate( mat &A, mat &R, int k, int l, int N)
     A(l,l) = a_ll*c*c + 2*A(k,l)*c*s + a_kk*s*s;
     A(k,l) = 0.0;
     A(l,k) = 0.0; //  Hardcode zeros to save computing time
-    // Iteration to fill rest of matrix A (s216 lect notes)
-
+    // Similarity transformations snippet
     for ( int i = 0; i < N; i++ )
     {
         if ( i != k && i != l )
         {
-            a_ik   = A(i,k);
-            a_il   = A(i,l);
-            A(i,k) = a_ik*c - a_il*s;
+            a_ik   = A(i,k); //old a_ik
+            a_il   = A(i,l); //old a_il
+            A(i,k) = a_ik*c - a_il*s; //new a_ik
             A(k,i) = A(i,k);
-            A(i,l) = a_il*c + a_ik*s;
+            A(i,l) = a_il*c + a_ik*s; // new a_il
             A(l,i) = A(i,l);
         }
         //  Fill eigenvector matrix R
