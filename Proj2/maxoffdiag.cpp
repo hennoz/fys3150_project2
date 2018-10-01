@@ -18,7 +18,6 @@ double maxoffdiag ( mat A, int *k, int *l, int N)
             if ( a_ij > max)
             {
                 max = a_ij;
-//                cout << "MAX = " << max << endl;
                 *k = i;
                 *l = j;
             }

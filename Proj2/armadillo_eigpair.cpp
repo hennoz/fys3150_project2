@@ -17,6 +17,6 @@ void armadillo_eigpair( int N, mat A)
     end = clock();
     double t_s = (double(end - start)/CLOCKS_PER_SEC)*1000;
 
-    cout << "Time to run Armadillo; " << t_s << "ms, when N = " << N << endl<<endl;
+    cout << "Time to run Armadillo; " << t_s << "ms, when N = " << N << endl;
 }
 

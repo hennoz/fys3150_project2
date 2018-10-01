@@ -29,18 +29,7 @@ void jacobi_method( int N, mat &A, mat &R, vec &lambdas)
     diags = A.diag();
     lambdas = sort(diags);
 
-//    cout << "Jacobi_rotate eigvals (cout from jacobi_method.cpp) " << endl;
-//    for ( int i = 0; i < 4; i++)
-//    {
-//        cout << lambdas[i] << endl;
-//    }
-
-
-
-//    cout << "Jacobi_rotate eigvecs; R = " << endl << R << endl << endl;
-    cout << "Number of iterations, or similarity transformations = " << iterations << endl << endl;
-    cout << "Time to run Jacobi_rotate; " << t_s_ << "ms when N = " << N << endl<<endl;
-
-
+    cout << "Number of iterations, or similarity transformations = " << iterations << endl;
+    cout << "Time to run Jacobi_rotate; " << t_s_ << "ms when N = " << N << endl;
 }
 

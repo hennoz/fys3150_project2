@@ -13,13 +13,11 @@
 using namespace std;
 using namespace arma;
 
-void test_eigvals_quantum( vec &lambdas, double p_N);
-
 int main(int argc, const char * argv[])
 {
-    int N = 200;
-    double p_N = 0;
-    double w = 0.0;
+    int N = 300;
+    double p_N = 15;
+    double w = 0.25;
     double w2 = w*w;
     int k, l;
     double h, d, a;
@@ -80,14 +78,7 @@ int main(int argc, const char * argv[])
     jacobi_method( N, A, R, lambdas );
     armadillo_eigpair( N, A );
 
-    cout << "Jacobi_rotate eigvals (cout from main.cpp) " << endl;
-    for ( int i = 0; i < 4; i++)
-    {
-        cout << lambdas[i] << endl;
-    }
-
-
-
+    // TESTS
     if ( p_N == 0)
     {
         test_eigvals( N, lambdas, a_lambdas, a, d );
@@ -95,6 +86,13 @@ int main(int argc, const char * argv[])
 
     if ( p_N != 0 && w == 0.0){
         test_eigvals_quantum( lambdas, p_N);
+    }
+    test_ortho( R, N );
+
+    cout << "using N = " << N << " and p_N = " << p_N << " and w = " << w <<  " the four first eigvals are " << endl;
+    for ( int i = 0; i < 4; i++ )
+    {
+        cout << lambdas[i] << endl;
     }
 
 
